@@ -1,0 +1,8 @@
+node_modules/
+.next/
+storage/
+.shots/
+*.tsbuildinfo
+dist-pages/
+static-site/public/data/dashboard.json
+~$*
