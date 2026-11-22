@@ -235,13 +235,13 @@ export default function Dashboard({ staticDataUrl }: { staticDataUrl?: string } 
         <button type="button" className={`nav-item ${activeNav === "sumber" ? "nav-active" : ""}`} onClick={() => jump("sumber")}><FolderOpen size={18} strokeWidth={1.9} /><span>Sumber Excel</span><span className="nav-count">{data.sources.length}</span></button>
         <div className="sidebar-spacer" />
         <div className="sidebar-help"><span className="sidebar-help-icon"><Activity size={18} /></span><strong>Data yang jelas,<br />keputusan yang tepat.</strong><p>Dari baris Excel sampai gambaran utuh biaya pemakaian.</p></div>
-        <div className="sidebar-footer"><span className="status-dot" /> Berjalan di komputer lokal</div>
+        <div className="sidebar-footer"><span className="status-dot" /> {isStatic ? "Data dipublikasikan online" : "Berjalan di komputer lokal"}</div>
       </aside>
 
       <main className="main" id="main">
         <header className="topbar">
           <div className="topbar-left"><button className="mobile-menu icon-button" type="button" aria-label="Buka navigasi" onClick={() => setMobileMenu(true)}><Menu size={21} /></button><span className="breadcrumb">Workspace</span><ChevronRight size={14} /><strong>Dashboard pemakaian</strong></div>
-          <div className="topbar-right"><div className="live-indicator"><span className="live-dot" />DATA LOKAL</div><span className="topbar-separator" /><span className="topbar-date"><CalendarDays size={15} /> {month ? monthLabel(month) : "Pilih bulan"}</span></div>
+          <div className="topbar-right"><div className="live-indicator"><span className="live-dot" />{isStatic ? "DATA ONLINE" : "DATA LOKAL"}</div><span className="topbar-separator" /><span className="topbar-date"><CalendarDays size={15} /> {month ? monthLabel(month) : "Pilih bulan"}</span></div>
         </header>
         <div className="content">
           {error && <div role="alert" className="alert alert-error"><CircleAlert size={17} />{error}<button type="button" aria-label="Tutup pesan" onClick={() => setError("")}><X size={16} /></button></div>}
@@ -326,7 +326,7 @@ export default function Dashboard({ staticDataUrl }: { staticDataUrl?: string } 
             </div>
             <div className="source-footnote"><span><Check size={15} /> {integer(data.toolCount)} kode alat terdaftar</span><span><Check size={15} /> {integer(data.workerCount)} tukang di daftar divisi</span><span><Check size={15} /> {integer(data.duplicateRows)} baris duplikat antarfile dilewati</span></div>
           </section>
-          <footer className="footer"><div className="footer-brand"><span className="footer-symbol">▦</span> BUKUPAKAI</div><span>Alat tercatat. Biaya terbaca.</span><span>Dashboard lokal · {new Date().getFullYear()}</span></footer>
+          <footer className="footer"><div className="footer-brand"><span className="footer-symbol">▦</span> BUKUPAKAI</div><span>Alat tercatat. Biaya terbaca.</span><span>Dashboard {isStatic ? "online" : "lokal"} · {new Date().getFullYear()}</span></footer>
         </div>
       </main>
       {loading && <div className="loading-overlay"><div className="loading-spin" /> Membaca data Excel...</div>}
